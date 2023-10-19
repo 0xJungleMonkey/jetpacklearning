@@ -27,13 +27,14 @@ import androidx.compose.ui.unit.dp
 import com.example.composetutorial.ui.theme.ComposeTutorialTheme
 import androidx.compose.foundation.border
 import androidx.compose.material3.MaterialTheme
+import android.content.res.Configuration
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeTutorialTheme {
                 Surface (modifier = Modifier.fillMaxSize()){
-                    MessageCard(Message("Android", "Jetpack Compose"))
+                    MessageCard(Message("Android", "Hey, take a look at Jetpack compose, it is great!"))
 
                 }
             }
@@ -50,20 +51,27 @@ fun MessageCard(msg: Message) {
             .size(40.dp)
             .clip(
                 CircleShape
-            ).border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
+            )
+            .border(1.5.dp, MaterialTheme.colorScheme.primary, CircleShape)
         )
 
     Spacer(modifier = Modifier.width(8.dp))
 
     Column {
-        Text(msg.author, color=MaterialTheme.colorScheme.secondary)
+        Text(msg.author, color=MaterialTheme.colorScheme.secondary, style = MaterialTheme.typography.titleSmall)
         Spacer(modifier = Modifier.height(4.dp))
-        Text(msg.body)
+        Surface(shape=MaterialTheme.shapes.medium, shadowElevation =1.dp) {
+        Text(msg.body, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(all=4.dp))}
     }}
-
 }
 
-@Preview
+
+
+
+@Preview(name="Light Mode")
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground=true,
+    name="Dark Mode")
 @Composable
 fun MessageCardPreview() {
     ComposeTutorialTheme {
